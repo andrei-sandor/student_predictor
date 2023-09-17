@@ -1,1 +1,1 @@
-# student_predictor
+# predictor_student
