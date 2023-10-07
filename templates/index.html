@@ -1,5 +1,5 @@
 
-<html >
+<html>
 
 <head>
  
@@ -8,25 +8,179 @@
 </head>
 
 <body>
- <div class="login">
+ 
 	<h1>School Predictor</h1>
 
+  
      
         
-        <form>
-            <input type="text" name="Gender" placeholder="Gender" required="required" />
-            <input type="text" name="Launch " placeholder="Launch" required="required" />
-            <input type="text" name="Preparation" placeholder="Preparation" required="required" />
+        <form action="{{ url_for('predict')}}"method="post">
+          <h1> Grade Predictor </h1>          
+            <select name="gender_school" id="gender_school">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
 
-            <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+            <select name="age" id="age">
+              <option value="15">Age: 15</option>
+              <option value="16">Age: 16</option>
+              <option value="17">Age: 17</option>
+              <option value="18">Age: 18</option>
+              <option value="19">Age: 19</option>
+              <option value="20">Age: 20</option>
+              <option value="21">Age: 21</option>
+              <option value="22">Age: 22</option>
+            </select>
+
+            <select name="fam_size" id="fam_size">
+              <option value="le3">3 members family</option>
+              <option value="ge3">More than 3 members familiy</option>
+            </select>
+
+            <select name="travel" id="travel">
+              <option value="0-15min">0-15min commute</option>
+              <option value="15-30min">15-30min commute</option>
+              <option value="30-60min">30-60min commute</option>
+              <option value=">60min">More than 60min commute</option>
+
+            </select>
+
+            <select name="study_time" id="study_time">
+              <option value="<2 hours ">Less than 2hrs/2days study</option>
+              <option value="2-5 hours study">2-5 hrs/2days study</option>
+              <option value="5-10 hours study">5-10 hrs/2days study</option>
+              <option value="<10 hours study">More than 2hrs/2days study</option>
+              
+            </select>
+
+            <select name="extra" id="extra">
+              <option value="Yes">ExtraCurricular</option>
+              <option value="No">No ExtraCurricular</option>
+            </select>
+
+            <select name="free" id="free">
+              <option value="1">Very Low free time</option>
+              <option value="2">Low free time</option>
+              <option value="3">Moderate free time</option>
+              <option value="4">Lot free time</option>
+              <option value="5">A lot free time </option>
+            </select>
+
+            <select name="friends" id="friends">
+              <option value="1">No time friends</option>
+              <option value="2">Little time friends</option>
+              <option value="3">Moderate time friends</option>
+              <option value="4">Lot time friends</option>
+              <option value="5">Always friends</option>
+            </select>
+            
+            <input type="text" name="absences" placeholder="absences", requires='required' value="{{ request.form['absences'] }}" />
+            <br>
+            <br>
+
+            <h1> Covid Predictor </h1>
+            <select name="fever" id="fever">
+              <option value="Yes Tired">Fever</option>
+              <option value="No Tired">No Fever</option>
+            </select>
+
+            <select name="tired" id="tired">
+              <option value="Yes tired">Tired</option>
+              <option value="No tired">No Tired</option>
+            </select>
+
+            <select name="cough" id="cough">
+              <option value="Yes cough">Cough</option>
+              <option value="No cough">No Cough</option>
+            </select>
+
+            <select name="breath" id="breath">
+              <option value="Yes breath">Difficulty-in-Breathing</option>
+              <option value="No breath">No Difficulty-in-Breathing</option>
+            </select>
+
+            <select name="Sore-Throat" id="Sore-Throat">
+              <option value="Yes Sore-Throat">Sore-Throat</option>
+              <option value="No Sore-Throat">No Sore-Throat</option>
+            </select>
+
+            <select name="None_Symptom" id="None_Symptom">
+              <option value="Yes None_Symptom">None_Symptom</option>
+              <option value="No None_Symptom">No None_Symptom</option>
+            </select>
+
+            <select name="Pains" id="Pains">
+              <option value="Yes Pains">Pains</option>
+              <option value="No Pains">No Pains</option>
+            </select>
+
+            <select name="Nasal-Congestion" id="Nasal-Congestion">
+              <option value="Yes Nasal-Congestion">Nasal-Congestion</option>
+              <option value="No Nasal-Congestion">No Nasal-Congestion</option>
+            </select>
+
+            <select name="Runny-Nose" id="Runny-Nose">
+              <option value="Yes Runny-Nose">Runny-Nose</option>
+              <option value="No Runny-Nose">No Runny-Nose</option>
+            </select>
+
+            <select name="Diarrhea" id="Diarrhea">
+              <option value="Yes Diarrhea">Diarrhea</option>
+              <option value="No Diarrhea">No Diarrhea</option>
+            </select>
+
+            <select name="Age_20-24" id="Age_20-24">
+              <option value="Yes Age_20-24">Age_20-24</option>
+              <option value="No Age_20-24">No Age_20-24</option>
+            </select>
+
+            <select name="Contact_Dont-Know" id="Contact_Dont-Know">
+              <option value="Yes Contact_Dont-Know">Contact-Dont-Know</option>
+              <option value="No Contact_Dont-Know">Contact-Do-Know</option>
+            </select>
+
+            <select name="Contact_No" id="Contact_No">
+              <option value="Yes Contact_No">Contact_No</option>
+              <option value="No Contact_No">No Contact_No</option>
+            </select>
+
+            <select name="Contact_Yes" id="Contact_Yes">
+              <option value="Yes Contact_Yes">Contact_Yes</option>
+              <option value="No Contact_Yes">No Contact_Yes</option>
+            </select>
+
+            <br>
+            <br>
+            <br>
+
+            <h1> Weather Predictor </h1>
+
+            <input type="text" name="precipitations" placeholder="precipitations", requires='required' value="{{ request.form['precipitations'] }}" />
+            <input type="text" name="temp_max" placeholder="temp_max", requires='required' value="{{ request.form['temp_max'] }}" />
+            <input type="text" name="temp_min" placeholder="temp_min", requires='required' value="{{ request.form['temp_min'] }}" />
+            <input type="text" name="wind" placeholder="wind", requires='required' value="{{ request.form['wind'] }}" />
+
+            <br>
+            <br>
+            <br>
+            <h1> IMDB Predictor </h1>
+            <input type="text" name="Released_Year" placeholder="Released_Year", requires='required' value="{{ request.form['Released_Year'] }}" />
+            <input type="text" name="Meta_score" placeholder="Meta_score", requires='required' value="{{ request.form['Meta_score'] }}" />
+            <input type="text" name="No_of_Votes" placeholder="No_of_Votes", requires='required' value="{{ request.form['No_of_Votes'] }}" />
+            <input type="text" name="Gross" placeholder="Gross", requires='required' value="{{ request.form['Gross'] }}" />
+
+            <button type="submit">Predict</button>
         </form>
     
 
-   <br>
-   <br> 
+  <br>
+  <br> 
+  
+  {{ prediction_weather }}
+  {{ prediction_imdb }}
    
-
- </div>
+  
+ 
 
 
 </body>
