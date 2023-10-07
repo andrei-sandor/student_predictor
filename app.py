@@ -106,17 +106,17 @@ def predict():
     
     final_features_math = [np.array(features_math)]
     
-    prediction_math_mid1 = round(model_math_mid1.predict(final_features_math)[0],0) / 20 * 100
+    prediction_math_mid1 = round(model_math_mid1.predict(final_features_math)[0]/20*100,0)
     
     final_prediction_math_mid1 = "Your predicted midterm 1 Math grade is " + str(prediction_math_mid1)
 
     
     
-    prediction_math_mid2 = round(model_math_mid2.predict(final_features_math)[0],0) / 20 * 100
+    prediction_math_mid2 = round(model_math_mid2.predict(final_features_math)[0]/20*100,0)
     
     final_prediction_math_mid2 = "Your predicted midterm 2 Math grade is " + str(prediction_math_mid2)
     
-    prediction_math_final = round(model_math_final.predict(final_features_math)[0],0) / 20 * 100
+    prediction_math_final = round(model_math_final.predict(final_features_math)[0]/20*100,0)
     
     final_prediction_math_final = "Your predicted final Math grade is " + str(prediction_math_final)
     
@@ -233,9 +233,9 @@ def predict():
     final_prediction_covid_none = ""
     
     if prediction_covid_none == 0:
-        final_prediction_covid_none = "Covid"
+        final_prediction_covid_none = "No covid"
     else:
-        final_prediction_covid_none = "No Covid"
+        final_prediction_covid_none = "Covid"
         
         
     prediction_covid_mild = model_covid_mild.predict(final_features_covid)[0]
