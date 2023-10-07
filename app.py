@@ -10,6 +10,10 @@ model_reading_pass_fail = pickle.load(open('model_school_reading_pass_fail.pkl',
 model_writing_grade = pickle.load(open('model_school_writing_grade.pkl', 'rb'))
 model_writing_pass_fail = pickle.load(open('model_school_writing_pass_fail.pkl', 'rb'))
 
+model_math_mid1 = pickle.load(open('model_math_mid1.pkl', 'rb'))
+model_math_mid2 = pickle.load(open('model_math_mid2.pkl', 'rb'))
+model_math_final= pickle.load(open('model_math_final.pkl', 'rb'))
+
 model_meteo = pickle.load(open('model_meteo.pkl', 'rb'))
 
 model_covid_none = pickle.load(open('model_covid_none.pkl', 'rb'))
@@ -27,6 +31,94 @@ def home():
 
 @app.route('/predict',methods=['POST'])
 def predict():
+    
+    # Prediction Math
+    features_math = []
+    
+    math_gender = request.form['gender_school']
+    if (math_gender == "Male"):
+        features_math.append(1)
+    else:
+        features_math.append(0)
+        
+        
+    math_age = request.form['age']
+    features_math.append(int(math_age))
+    
+    math_fam = request.form['fam_size']
+    if (math_fam == "le3"):
+        features_math.append(1)
+    else:
+        features_math.append(0)
+        
+    math_travel = request.form['travel']
+    if (math_travel == "0-15min"):
+        features_math.append(1)
+    if (math_travel == "15-30min"):
+        features_math.append(2)
+    if (math_travel == "30-60min"):
+        features_math.append(3)
+    if (math_travel == ">60min"):
+        features_math.append(4)
+        
+    math_study = request.form['study_time']
+    if (math_study == "<2 hours "):
+        features_math.append(1)
+    if (math_study == "2-5 hours study"):
+        features_math.append(2)
+    if (math_study == "5-10 hours study"):
+        features_math.append(3)
+    if (math_study == ">10 hours study"):
+        features_math.append(4)
+    
+    math_act = request.form['extra']
+    if (math_act == "Yes"):
+        features_math.append(1)
+    else:
+        features_math.append(0)
+        
+    math_free = request.form['free']
+    if (math_free == "1"):
+        features_math.append(1)
+    if (math_free == "2"):
+        features_math.append(2)
+    if (math_free == "3"):
+        features_math.append(3)
+    if (math_free == "4"):
+        features_math.append(4)
+    if (math_free == "5"):
+        features_math.append(5)
+        
+    math_friends = request.form['friends']
+    if (math_friends == "1"):
+        features_math.append(1)
+    if (math_friends == "2"):
+        features_math.append(2)
+    if (math_friends == "3"):
+        features_math.append(3)
+    if (math_friends == "4"):
+        features_math.append(4)
+    if (math_friends == "5"):
+        features_math.append(5)
+    
+    
+    features_math.append(int((request.form.get("absences"))))
+    
+    final_features_math = [np.array(features_math)]
+    
+    prediction_math_mid1 = round(model_math_mid1.predict(final_features_math)[0],0) / 20 * 100
+    
+    final_prediction_math_mid1 = "Your predicted midterm 1 Math grade is " + str(prediction_math_mid1)
+
+    
+    
+    prediction_math_mid2 = round(model_math_mid2.predict(final_features_math)[0],0) / 20 * 100
+    
+    final_prediction_math_mid2 = "Your predicted midterm 2 Math grade is " + str(prediction_math_mid2)
+    
+    prediction_math_final = round(model_math_final.predict(final_features_math)[0],0) / 20 * 100
+    
+    final_prediction_math_final = "Your predicted final Math grade is " + str(prediction_math_final)
     
     
     # Prediciton covid
@@ -206,7 +298,10 @@ def predict():
     
     prediction_imdb_html = "Predicted IMDB is " + str(prediction_imdb)
     
-    return render_template('index.html', prediction_covid_none = final_prediction_covid_none,
+    return render_template('index.html', prediction_math_mid1 = final_prediction_math_mid1,
+                                        prediction_math_mid2 = final_prediction_math_mid2,
+                                        prediction_math_final = final_prediction_math_final,
+                                        prediction_covid_none = final_prediction_covid_none,
                                         prediction_covid_mild = final_prediction_covid_mild,
                                         prediction_covid_moderate = final_prediction_covid_moderate,
                                         prediction_covid_severe = final_prediction_covid_severe,

@@ -19,6 +19,7 @@
             <select name="gender_school" id="gender_school">
               <option value="Male">Male</option>
               <option value="Female">Female</option>
+              <option value="Other">Other</option>
             </select>
 
             <select name="age" id="age">
@@ -49,7 +50,7 @@
               <option value="<2 hours ">Less than 2hrs/2days study</option>
               <option value="2-5 hours study">2-5 hrs/2days study</option>
               <option value="5-10 hours study">5-10 hrs/2days study</option>
-              <option value="<10 hours study">More than 2hrs/2days study</option>
+              <option value=">10 hours study">More than 10hrs/2days study</option>
               
             </select>
 
@@ -191,6 +192,12 @@
   <br>
   <br> 
   
+  {{ prediction_math_mid1 }}
+  <br>
+  {{ prediction_math_mid2 }}
+  <br>
+  {{ prediction_math_final }}
+  <br>
   {{ prediction_covid_none }}
   <br>
   {{ prediction_covid_mild }}
