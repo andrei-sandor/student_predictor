@@ -29,6 +29,150 @@ def home():
 def predict():
     
     
+    # Prediciton covid
+    features_covid = []
+    
+    covid_fever = request.form['fever']
+    if (covid_fever == "Yes Fever"):
+        features_covid.append(1)
+    else:
+        features_covid.append(0)
+        
+    covid_tired = request.form['tired']
+    if (covid_tired == "Yes tired"):
+        features_covid.append(1)
+    else:
+        features_covid.append(0)
+        
+    covid_cough = request.form['cough']
+    if (covid_cough == "Yes cough"):
+        features_covid.append(1)
+    else:
+        features_covid.append(0)
+    
+    covid_breath = request.form['breath']
+    if (covid_breath == "Yes breath"):
+        features_covid.append(1)
+    else:
+        features_covid.append(0)
+        
+    covid_sore_throat = request.form['Sore-Throat']
+    if (covid_sore_throat == "Yes Sore-Throat"):
+        features_covid.append(1)
+    else:
+        features_covid.append(0)
+        
+    covid_none_symptoms = request.form['None_Symptom']
+    if (covid_none_symptoms == "Yes None_Symptom"):
+        features_covid.append(1)
+    else:
+        features_covid.append(0) 
+            
+    covid_pains = request.form['Pains']
+    if (covid_pains == "Yes Pains"):
+        features_covid.append(1)
+    else:
+        features_covid.append(0)    
+        
+    covid_nasal = request.form['Nasal-Congestion']
+    if (covid_nasal == "Yes Nasal-Congestion"):
+        features_covid.append(1)
+    else:
+        features_covid.append(0)
+        
+    covid_nose= request.form['Runny-Nose']
+    if (covid_nose == "Yes Runny-Nose"):
+        features_covid.append(1)
+    else:
+        features_covid.append(0)
+        
+    covid_diarrhea= request.form['Diarrhea']
+    if (covid_diarrhea == "Yes Diarrhea"):
+        features_covid.append(1)
+    else:
+        features_covid.append(0)
+        
+    covid_age = request.form['Age_20-24']
+    if (covid_age == "Yes Age_20-24"):
+        features_covid.append(1)
+    else:
+        features_covid.append(0)
+        
+    covid_female = request.form['Female']
+    if (covid_female == "Yes Female"):
+        features_covid.append(1)
+    else:
+        features_covid.append(0)
+        
+    covid_male = request.form['Male']
+    if (covid_male == "Yes Male"):
+        features_covid.append(1)
+    else:
+        features_covid.append(0)
+        
+    covid_transgender = request.form['Transgender']
+    if (covid_transgender == "Yes Transgender"):
+        features_covid.append(1)
+    else:
+        features_covid.append(0)
+        
+    covid_contact_idk = request.form['Contact_Dont-Know']
+    if (covid_contact_idk == "Yes Contact_Dont-Know"):
+        features_covid.append(1)
+    else:
+        features_covid.append(0)
+        
+    covid_contact_no = request.form['Contact_No']
+    if (covid_contact_no == "Yes Contact_No"):
+        features_covid.append(1)
+    else:
+        features_covid.append(0)
+        
+    covid_contact_yes = request.form['Contact_Yes']
+    if (covid_contact_yes == "Yes Contact_Yes"):
+        features_covid.append(1)
+    else:
+        features_covid.append(0)
+    
+    final_features_covid = [np.array(features_covid)]
+    
+    prediction_covid_none = model_covid_none.predict(final_features_covid)[0]
+    
+    final_prediction_covid_none = ""
+    
+    if prediction_covid_none == 0:
+        final_prediction_covid_none = "Covid"
+    else:
+        final_prediction_covid_none = "No Covid"
+        
+        
+    prediction_covid_mild = model_covid_mild.predict(final_features_covid)[0]
+    
+    final_prediction_covid_mild = ""
+    
+    if prediction_covid_mild == 1:
+        final_prediction_covid_mild = "Possibility of mild Covid"
+    else:
+        final_prediction_covid_mild = "No mild covid"    
+    
+    prediction_covid_moderate = model_covid_moderate.predict(final_features_covid)[0]
+    
+    final_prediction_covid_moderate = ""
+    
+    if prediction_covid_moderate == 1:
+        final_prediction_covid_moderate = "Possibility of moderate Covid"
+    else:
+        final_prediction_covid_moderate = "No moderate covid"
+        
+    prediction_covid_severe =  model_covid_severe.predict(final_features_covid)[0]
+    
+    final_prediction_covid_severe= ""
+    
+    if prediction_covid_severe == 1:
+        final_prediction_covid_severe = "Possibility of severe Covid"
+    else:
+        final_prediction_covid_severe = "No severe covid"
+    
      # Prediction Weather    
     features_weather = [float((request.form.get("precipitations"))), float((request.form.get("temp_max"))),
                      float((request.form.get("temp_min"))), float((request.form.get("wind")))]
@@ -62,7 +206,11 @@ def predict():
     
     prediction_imdb_html = "Predicted IMDB is " + str(prediction_imdb)
     
-    return render_template('index.html', prediction_weather = prediction_weather_html, 
+    return render_template('index.html', prediction_covid_none = final_prediction_covid_none,
+                                        prediction_covid_mild = final_prediction_covid_mild,
+                                        prediction_covid_moderate = final_prediction_covid_moderate,
+                                        prediction_covid_severe = final_prediction_covid_severe,
+                                        prediction_weather = prediction_weather_html, 
                                         prediction_imdb=prediction_imdb_html)
 
 if __name__ == "__main__":
